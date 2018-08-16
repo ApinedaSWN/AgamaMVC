@@ -4,26 +4,26 @@ class Producto extends EntidadBase{
     private $nombre;
     private $precio;
     private $marca;
-    
+
     public function __construct($adapter) {
-        $table="productos";
+        $table="producto";
         parent::__construct($table,$adapter);
     }
-    
+
     public function getId() {
-        return $this->id;
+        return $this->id_producto;
     }
 
     public function setId($id) {
-        $this->id = $id;
+        $this->id_producto = $id;
     }
-    
+
     public function getNombre() {
-        return $this->nombre;
+        return $this->producto;
     }
 
     public function setNombre($nombre) {
-        $this->nombre = $nombre;
+        $this->producto = $nombre;
     }
 
     public function getPrecio() {
@@ -43,9 +43,9 @@ class Producto extends EntidadBase{
     }
 
     public function save(){
-        $query="INSERT INTO productos (id,nombre,precio,marca)
+        $query="INSERT INTO producto (id_producto,nombre,precio,marca)
                 VALUES(NULL,
-                       '".$this->nombre."',
+                       '".$this->producto."',
                        '".$this->precio."',
                        '".$this->marca."');";
         $save=$this->db()->query($query);

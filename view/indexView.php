@@ -1,67 +1,123 @@
-<!DOCTYPE HTML>
-<html lang="es">
-    <head>
-        <meta charset="utf-8"/>
-        <title>Ejemplo PHP MySQLi POO MVC</title>
-        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <style>
-            input{
-                margin-top:5px;
-                margin-bottom:5px;
-            }
-            .right{
-                float:right;
-            }
-        </style>
-    </head>
-    <body>
-        <form action="<?php echo $helper->url("usuarios","crear"); ?>" method="post" class="col-lg-5">
-            <h3>Añadir usuario</h3>
-            <hr/>
-            Nombre: <input type="text" name="nombre" class="form-control"/>
-            Apellido: <input type="text" name="apellido" class="form-control"/>
-            Email: <input type="text" name="email" class="form-control"/>
-            Contraseña: <input type="password" name="password" class="form-control"/>
-            <input type="submit" value="enviar" class="btn btn-success"/>
-        </form>
-        
-        <div class="col-lg-7">
-            <h3>Usuarios</h3>
-            <hr/>
-        </div>
-        <section class="col-lg-7 usuario" style="height:400px;overflow-y:scroll;">
-            <?php foreach($allusers as $user) {?>
-                <?php echo $user->id; ?> -
-                <?php echo $user->nombre; ?> -
-                <?php echo $user->apellido; ?> -
-                <?php echo $user->email; ?>
-                <div class="right">
-                    <a href="<?php echo $helper->url("usuarios","borrar"); ?>&id=<?php echo $user->id; ?>" class="btn btn-danger">Borrar</a>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="apple-touch-icon" sizes="57x57" href="/assets/img/fav/apple-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/assets/img/fav/apple-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/assets/img/fav/apple-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/fav/apple-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/assets/img/fav/apple-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/assets/img/fav/apple-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/assets/img/fav/apple-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/assets/img/fav/apple-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/fav/apple-icon-180x180.png">
+  <link rel="icon" type="image/png" sizes="192x192"  href="/assets/img/fav/android-icon-192x192.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/fav/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/fav/favicon-96x96.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/fav/favicon-16x16.png">
+  <title>Agama Ventas</title>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+  <link rel="stylesheet" href="/assets/css/estilos.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style media="screen">
+  *{
+    font-family: 'Montserrat', sans-serif;
+  }
+  main{
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100% !important;
+    position: absolute;
+    background-color: rgba(51,71,79,0.8);
+  }
+  .container-fluid{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 100% !important;
+    position: absolute;
+
+  }
+  .row{
+    margin: 0;
+  }
+  .center-h{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+  }
+  video {
+    background-size: cover;
+    bottom: 0;
+    height: auto;
+    min-height: 100%;
+    min-width: 100%;
+    position: fixed;
+    right: 0;
+    width: auto;
+    z-index: -100;
+  }
+  .headerTitle{
+    padding: 10px;
+    text-align: center;
+    letter-spacing: 7px;
+  }
+
+  .btnlogin{
+    width: 100%;
+  }
+
+
+  </style>
+</head>
+<body class="">
+  <video src="/assets/img/loginBack.mp4" autoplay loop>
+
+  </video>
+  <main>
+    <div class="container-fluid ">
+      <div class="center-h row" style="width:100%;">
+        <div class="col m3 s12">
+          <div class="card cont-login" >
+            <h5 class="headerTitle" style="padding-top:1.5em;"><img src="/assets/img/LogoCirculo.png" class="responsive-img" style="width:50%;" alt=""></h5>
+            <div class="card-content">
+              <div class="row">
+                <div class="col m12 s12">
+                  <div class="divider"></div>
                 </div>
-                <hr/>
-            <?php } ?>
-        </section>
-		
-		 <?php if(isset($allproducts) && count($allproducts)>=1) {?>
-		<div class="col-lg-7">
-            <h3>Productos</h3>
-            <hr/>
+                <form class="" action="<?php echo $helper->url("auth","login"); ?>" method="post"  style="padding-bottom:10px;">
+                  <div class="col m12 s12 input-field">
+                    <input type="text" name="usuario" value="" id="usuario" autocomplete="off" placeholder="Nombre de usuario" required>
+                  </div>
+                  <div class="col m12 s12 input-field">
+                    <input type="password" name="password" value="" id="password" required placeholder="Contraseña">
+                  </div>
+                  <div class="col m12 s12 inline input-field">
+                    <input type="submit" class="btn-large blue btnlogin" name="" value="Entrar">
+                    <span class="helper-text center-align" data-error="wrong" data-success="right">Si olvidaste tu password comunicate con el administrador </span>
+                  </div>
+                </form>
+              </div>
+
+              <div class="row"  style="padding-top:1.5em;">
+                <div class="col m12 s12 red white-text center-align" style="padding:10px;">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-		 <section class="col-lg-7 producto" style="height:400px;overflow-y:scroll;">
-            <?php foreach($allproducts as $product) {?>
-                <?php echo $product->id; ?> -
-                <?php echo $product->nombre; ?> -
-                <?php echo $product->precio; ?> -
-                <?php echo $product->marca; ?>
-                <hr/>
-            <?php } ?>
-        </section>
-		 <?php } ?>
-        <footer class="col-lg-12">
-            <hr/>
-           Ejemplo PHP MySQLi POO MVC - Víctor Robles - <a href="http://victorroblesweb.es">victorroblesweb.es</a> - Copyright &copy; <?php echo  date("Y"); ?>
-        </footer>
-    </body>
+      </div>
+    </div>
+
+  </main>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 </html>

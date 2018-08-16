@@ -2,18 +2,17 @@
 class ModeloBase extends EntidadBase{
     private $table;
     private $fluent;
-    
+
     public function __construct($table, $adapter) {
         $this->table=(string) $table;
-        parent::__construct($table, $adapter);
-        
+        parent::__construct($table, $adapter);        
         $this->fluent=$this->getConetar()->startFluent();
     }
-    
+
     public function fluent(){
         return $this->fluent;
     }
-    
+
     public function ejecutarSql($query){
         $query=$this->db()->query($query);
         if($query==true){
@@ -31,13 +30,11 @@ class ModeloBase extends EntidadBase{
         }else{
             $resultSet=false;
         }
-        
+
         return $resultSet;
     }
-    
+
     //Aqui podemos montarnos metodos para los modelos de consulta
-    
+
 }
 ?>
-
-

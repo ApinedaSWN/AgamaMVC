@@ -5,12 +5,12 @@ class Usuario extends EntidadBase{
     private $apellido;
     private $email;
     private $password;
-    
+
     public function __construct($adapter) {
-        $table="usuarios";
+        $table="usuario";
         parent::__construct($table, $adapter);
     }
-    
+
     public function getId() {
         return $this->id;
     }
@@ -18,7 +18,7 @@ class Usuario extends EntidadBase{
     public function setId($id) {
         $this->id = $id;
     }
-    
+
     public function getNombre() {
         return $this->nombre;
     }
@@ -61,6 +61,11 @@ class Usuario extends EntidadBase{
         $save=$this->db()->query($query);
         //$this->db()->error;
         return $save;
+    }
+
+    public function deleteById($id)
+    {
+
     }
 
 }
